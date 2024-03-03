@@ -181,7 +181,7 @@ public function show(ReclamationRepository $rep, Request $request): Response
     public function mesReclama(ReclamationRepository $reclamationRepository,Security $security): Response
         {
             // Récupérer l'utilisateur actuellement authentifié
-            $user = $this->security->getUser();
+            $user = $security->getUser();
 
             // Récupérer les réclamations de l'utilisateur
             $reclamations = $reclamationRepository->findBy(['user' => $user]);
