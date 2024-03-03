@@ -1,0 +1,12 @@
+{% extends 'Backbase.html.twig' %}
+{% block title %}Edit Entretient{% endblock %}
+
+{% block body %}
+    <h1>Edit Entretient</h1>
+
+    {{ include('entretient/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_entretient_index') }}">back to list</a>
+
+    {{ include('entretient/_delete_form.html.twig') }}
+{% endblock %}
