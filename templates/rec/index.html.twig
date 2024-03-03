@@ -27,6 +27,20 @@
                                         <i class="fa fa-3x fa-globe text-primary mb-4"></i>
                                         <h2 class="mb-4">{{ data.title }}</h2>
                                         <h3 class="mb-0">{{ data.content }}</h3>
+                                        {% if data.reponses is not empty %}
+                                            <h4>Réponses :</h4>
+                                            <ul>
+                                                {% for reponse in data.reponses %}
+                                                <div class="reponse-box" style="max-height: 150px; overflow-y: auto;">
+                                                    <li>sujet : {{ reponse.subject }} -  message:{{ reponse.message }}</li>
+                                                </div>
+                                                {% endfor %}
+                                               
+                                              
+                                            </ul>
+                                        {% else %}
+                                            <p>Aucune réponse pour cette réclamation.</p>
+                                        {% endif %}
                                         <a class="btn btn-primary" href="{{ path('update',{'idrec':data.idrec}) }}">Update</a>
                                         <a class="btn btn-outline-primary" href="{{ path('delete',{'idrec':data.idrec}) }}">Delete</a>
                                         <a class="btn btn-outline-primary" href="{{ path('reponse_create',{'id':data.idrec}) }}">Repondre</a>
