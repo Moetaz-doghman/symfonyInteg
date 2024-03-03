@@ -20,6 +20,10 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\Length;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Security\Core\Security;
+use App\Repository\UserRepository;
+
+
 
 class RecController extends AbstractController
 {
@@ -40,9 +44,13 @@ class RecController extends AbstractController
     }
    
     #[Route('/rec/create', name: 'create')]
-    public function create(Request $request)
+    public function create(Request $request , UserRepository $repository, Security $security)
     {
+
+    $user = $security->getUser();
+
       $reclamation = new Reclamation();
+      $reclamation->setUser($user);
       $form = $this->createForm(RecType::class, $reclamation);
       $formView = $form->createView();
     #  $form = $this->createForm(RecType::class, $reclamation, [
@@ -168,6 +176,20 @@ public function show(ReclamationRepository $rep, Request $request): Response
         
     ]);
 }
+
+    #[Route('/mesRec', name: 'mes_rec')]
+    public function mesReclama(ReclamationRepository $reclamationRepository,Security $security): Response
+        {
+            // Récupérer l'utilisateur actuellement authentifié
+            $user = $this->security->getUser();
+
+            // Récupérer les réclamations de l'utilisateur
+            $reclamations = $reclamationRepository->findBy(['user' => $user]);
+
+            return $this->render('rec/mesrec.html.twig', [
+                'list' => $reclamations,
+            ]);
+        }
 
 
 }

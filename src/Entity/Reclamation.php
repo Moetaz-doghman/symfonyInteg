@@ -31,6 +31,10 @@ class Reclamation
     #[ORM\OneToMany(targetEntity: Reponse::class, mappedBy: "reclamation", orphanRemoval: true)]
     private $reponses;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id")]
+    private $user;
+
     public function __construct()
     {
         $this->reponses = new ArrayCollection();
@@ -100,4 +104,16 @@ class Reclamation
         }
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
 }
