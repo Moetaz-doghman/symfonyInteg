@@ -38,7 +38,7 @@ class EntretientfController extends AbstractController
 
         return $this->render('entretientf/new.html.twig', [
             'entretient' => $entretient,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -64,7 +64,7 @@ class EntretientfController extends AbstractController
 
         return $this->render('entretientf/edit.html.twig', [
             'entretient' => $entretient,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
