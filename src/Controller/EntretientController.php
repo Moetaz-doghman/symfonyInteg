@@ -40,7 +40,7 @@ class EntretientController extends AbstractController
 
         return $this->render('entretient/new.html.twig', [
             'entretient' => $entretient,
-            'form' => $form,
+            'form' => $form->createView(),
             'page_title' => 'PAGE_Entretien',
             'active_page' => 'PAGE_Entretien',
         ]);
@@ -70,7 +70,7 @@ class EntretientController extends AbstractController
 
         return $this->render('entretient/edit.html.twig', [
             'entretient' => $entretient,
-            'form' => $form,
+            'form' => $form->createView(),
             'page_title' => 'PAGE_Entretien',
             'active_page' => 'PAGE_Entretien',
         ]);

@@ -28,17 +28,17 @@ class RecrutementfController extends AbstractController
         $recrutement = new Recrutement();
         $form = $this->createForm(Recrutement1Type::class, $recrutement);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($recrutement);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_recrutementf_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('recrutementf/new.html.twig', [
             'recrutement' => $recrutement,
-            'form' => $form,
+            'form' => $form->createView(), // Utilisez createView() pour obtenir la vue de formulaire
         ]);
     }
 
@@ -64,7 +64,7 @@ class RecrutementfController extends AbstractController
 
         return $this->render('recrutementf/edit.html.twig', [
             'recrutement' => $recrutement,
-            'form' => $form,
+            'form' => $form->createView(), // Utilisez createView() pour obtenir la vue de formulaire
         ]);
     }
 

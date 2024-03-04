@@ -30,21 +30,42 @@ class RecrutementController extends AbstractController
         $recrutement = new Recrutement();
         $form = $this->createForm(RecrutementType::class, $recrutement);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($recrutement);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_recrutement_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('recrutement/new.html.twig', [
             'recrutement' => $recrutement,
-            'form' => $form,
+            'form' => $form->createView(), // Pass the form view
             'page_title' => 'PAGE_Recrutement',
             'active_page' => 'PAGE_Recrutement',
         ]);
     }
+    
+    #[Route('/{id}/edit', name: 'app_recrutement_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Recrutement $recrutement, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(RecrutementType::class, $recrutement);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('app_recrutement_index', [], Response::HTTP_SEE_OTHER);
+        }
+    
+        return $this->render('recrutement/edit.html.twig', [
+            'recrutement' => $recrutement,
+            'form' => $form->createView(), // Pass the form view
+            'page_title' => 'PAGE_Recrutement',
+            'active_page' => 'PAGE_Recrutement',
+        ]);
+    }
+    
 
     #[Route('/{id}', name: 'app_recrutement_show', methods: ['GET'])]
     public function show(Recrutement $recrutement): Response
@@ -56,26 +77,7 @@ class RecrutementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_recrutement_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Recrutement $recrutement, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(RecrutementType::class, $recrutement);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_recrutement_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('recrutement/edit.html.twig', [
-            'recrutement' => $recrutement,
-            'form' => $form,
-            'page_title' => 'PAGE_Recrutement',
-            'active_page' => 'PAGE_Recrutement',
-        ]);
-    }
-
+   
     #[Route('/{id}', name: 'app_recrutement_delete', methods: ['POST'])]
     public function delete(Request $request, Recrutement $recrutement, EntityManagerInterface $entityManager): Response
     {
