@@ -4,7 +4,11 @@
 
 {% block body %}
     <h1>Entretient</h1>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <table class="table">
         <tbody>
             <tr>
@@ -26,9 +30,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_entretient_index') }}">back to list</a>
-
-    <a href="{{ path('app_entretient_edit', {'id': entretient.id}) }}">edit</a>
+    <a href="{{ path('app_entretient_index') }}" class="btn btn-info">back to list</a> <!-- Ajoutez la classe btn-info -->
+    <a href="{{ path('app_entretient_edit', {'id': entretient.id}) }}" class="btn btn-primary">edit</a> <!-- Ajoutez la classe btn-primary -->
 
     {{ include('entretient/_delete_form.html.twig') }}
 {% endblock %}
